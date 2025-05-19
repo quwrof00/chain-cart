@@ -35,7 +35,7 @@
 
 ```bash
 # Clone the repo
-git clone https://github.com/quwrof00/neo-shop
+git clone https://github.com/quwrof00/chain-cart
 cd ecommerce-app
 
 # Install dependencies
