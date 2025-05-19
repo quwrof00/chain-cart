@@ -24,7 +24,7 @@ export default function CryptoButton({ total }: { total: number }) {
 
     const tx = await signer.sendTransaction({
       to: CONTRACT_ADDRESS,
-      value: parseEther(0.01.toString()),
+      value: parseEther(0.0001.toString()),
     })
 
     await tx.wait()

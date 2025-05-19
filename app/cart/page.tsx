@@ -4,10 +4,11 @@ import QuantityButtons from '@/components/QuantityButtons'
 import SaveForLaterButton from '@/components/SaveForLaterButton'
 import MoveToCartButton from '@/components/MoveToCartButton'
 import Link from 'next/link'
+import { log } from 'console'
 
 export default async function CartPage() {
   const supabase = await createServerSupabase()
-  const { data: { user } } = await supabase.auth.getUser()
+  const { data: {user}} = await supabase.auth.getUser()
 
   if (!user) {
     return (
@@ -85,11 +86,9 @@ export default async function CartPage() {
       </div>
     )
   }
-
+  console.log(cartItems);
   const total = cartItems.reduce(
-    (sum, item) => sum + item.quantity * item.products.price,
-    0
-  )
+    (sum, item) => sum + item.quantity * item.products.price, 0)
 
   return (
     <div className="min-h-screen bg-gray-900 p-8 max-w-5xl mx-auto" style={{
@@ -153,7 +152,7 @@ export default async function CartPage() {
       {savedItems && savedItems.length > 0 && (
         <div className="mt-12">
           <h2 className="text-3xl font-semibold text-white mb-8 text-center animate-[fade-in_1s_ease-out] [text-shadow:_0_0_5px_rgba(249,115,22,0.3)]">
-            Saved for Later
+            Saved for later
           </h2>
           <div className="space-y-6">
             {savedItems.map(item => (

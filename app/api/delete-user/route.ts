@@ -1,6 +1,7 @@
-// app/api/delete-user/route.ts
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+
+export const runtime = 'nodejs' 
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,

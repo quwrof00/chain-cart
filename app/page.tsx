@@ -8,6 +8,7 @@ export default function HomePage() {
   const [isHovering, setIsHovering] = useState(false);
   const [scrollToProducts, setScrollToProducts] = useState(false);
 
+  //dummy products for the carousel
   const products = [
     { 
       name: 'Quantum Sneakers', 
@@ -29,7 +30,7 @@ export default function HomePage() {
     },
   ];
 
-  // Auto-scroll only when not hovering
+  // Auto-scroll only when not hovering 
   useEffect(() => {
     if (isHovering) return;
     
@@ -43,14 +44,14 @@ export default function HomePage() {
   // Handle scroll to products section
   useEffect(() => {
     if (scrollToProducts) {
-      document.getElementById('featured-products').scrollIntoView({ 
+      document.getElementById('featured-products')?.scrollIntoView({ 
         behavior: 'smooth' 
       });
       setScrollToProducts(false);
     }
   }, [scrollToProducts]);
 
-  const goToSlide = (index) => {
+  const goToSlide = (index:number) => {
     setCurrentIndex(index);
   };
 
@@ -72,48 +73,40 @@ export default function HomePage() {
       
       <div className="relative px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center z-10">
         <div className="w-full px-4 max-w-screen-xl mx-auto overflow-visible">
-  <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-orange-500 animate-pulse kaushan-script leading-tight">
-    Discover Your Style
-  </h1>
-</div>
-
-
-
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-orange-500 animate-pulse kaushan-script leading-tight">
+            Discover Your Style
+          </h1>
+        </div>
         <p className="text-xl md:text-2xl text-gray-200 mb-10 max-w-2xl">
           Explore our curated collection of premium products designed for modern living.
           Elevate your everyday experience with cutting-edge technology and stylish essentials.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 mb-16">
           <Link
-      href="/products"
-      className="px-10 py-4 text-xl bg-[#FB923C] hover:bg-[#F97316] text-white rounded-full transition-all duration-300 transform hover:scale-105 shadow-[0_0_15px_#F97316]
-"
-    >
-      Shop Now
-    </Link>
+          href="/products"
+          className="px-10 py-4 text-xl bg-[#FB923C] hover:bg-[#F97316] text-white rounded-full transition-all duration-300 transform hover:scale-105 shadow-[0_0_15px_#F97316]">
+            Shop Now
+          </Link>
         </div>
       </div>
         
         {/* Animated down arrow */}
         <div 
-  className="absolute bottom-20 left-1/2 transform -translate-x-1/2 cursor-pointer animate-bounce hover:scale-110 transition-transform"
-  onClick={() => setScrollToProducts(true)}
->
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    className="h-12 w-12 text-orange-400 drop-shadow-[0_0_10px_rgba(255,165,0,0.4)]"
-    fill="none" 
-    viewBox="0 0 24 24" 
-    stroke="currentColor"
-  >
-    <path 
-      strokeLinecap="round" 
-      strokeLinejoin="round" 
-      strokeWidth={2} 
-      d="M19 14l-7 7m0 0l-7-7m7 7V3" 
-    />
-  </svg>
-</div>
+        className="absolute bottom-20 left-1/2 transform -translate-x-1/2 cursor-pointer animate-bounce hover:scale-110 transition-transform"
+        onClick={() => setScrollToProducts(true)}>
+          <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          className="h-12 w-12 text-orange-400 drop-shadow-[0_0_10px_rgba(255,165,0,0.4)]"
+          fill="none" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor">
+            <path 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+            strokeWidth={2} 
+            d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+      </div>
 
       </section>
 

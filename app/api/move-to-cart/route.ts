@@ -18,14 +18,12 @@ export async function POST(req: NextRequest) {
   if (error || !savedItem)
     return NextResponse.json({ error: 'Item not found in saved list' }, { status: 404 })
 
-  // Insert into cart_items
   await supabase.from('cart_items').insert({
     product_id: savedItem.product_id,
     user_id: user.id,
     quantity: savedItem.quantity,
   })
 
-  // Remove from saved_items
   await supabase.from('saved_items').delete().eq('id', itemId)
 
   return NextResponse.json({ success: true })

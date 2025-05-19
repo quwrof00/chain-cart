@@ -13,7 +13,11 @@ export default function RemoveButton({ itemId, onRemove }: RemoveButtonProps) {
 
   const handleRemove = async () => {
     setLoading(true)
-    const { error } = await supabase.from('cart_items').delete().eq('id', itemId)
+    const { error } = await supabase
+    .from('cart_items')
+    .delete()
+    .eq('id', itemId);
+    
     setLoading(false)
 
     if (error) {

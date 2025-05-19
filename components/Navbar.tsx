@@ -58,7 +58,7 @@ const Navbar = () => {
           href="/"
           className="text-3xl font-extrabold text-white animate-[glitch_1.5s_ease-in-out] [text-shadow:_0_0_12px_rgba(79,70,229,0.8)] hover:text-teal-400 transition-colors duration-300"
         >
-          ShopLogo
+          ChainCart
         </Link>
         {isLoading && (
           <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center w-6 h-6">

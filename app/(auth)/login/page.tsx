@@ -13,9 +13,13 @@ export default function LoginPage() {
   const [showReset, setShowReset] = useState(false)
   const [resetEmail, setResetEmail] = useState('')
 
+  //main function to handle login
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    //actual supabase function to handle login
     const { error } = await supabase.auth.signInWithPassword({ email, password })
+
     if (error) {
       setError(error.message)
       toast.error(error.message)
@@ -25,10 +29,13 @@ export default function LoginPage() {
     }
   }
 
+  //function to handle forgot password
   const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    //actual one for reset password
     const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
-      redirectTo: 'http://localhost:3000/reset-password', // update this for production
+      redirectTo: 'http://localhost:3000/reset-password', 
     })
 
     if (error) {

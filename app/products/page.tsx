@@ -3,13 +3,13 @@ import { createServerSupabase } from '@/lib/supabase-server'
 import SearchInput from '@/components/SearchInput'
 import CategorySelect from '@/components/CategorySelect'
 
-const PRODUCTS_PER_PAGE = 9
+const PRODUCTS_PER_PAGE = 9 //max products to be displayed on a page
 
 export default async function ProductsPage({ searchParams }: { searchParams: { search?: string; page?: string; category?: string }}) {
   const searchParams2 = await searchParams;
-  const page = parseInt(searchParams2.page || '1');
-  const from = (page - 1) * PRODUCTS_PER_PAGE;
-  const to = from + PRODUCTS_PER_PAGE - 1;
+  const page = parseInt(searchParams2.page || '1'); //get page no.
+  const from = (page - 1) * PRODUCTS_PER_PAGE; //start range of products to fetch
+  const to = from + PRODUCTS_PER_PAGE - 1; //end range 
   const category = searchParams2.category || '';
   const searchQuery = (searchParams2.search || '').trim();
 
@@ -17,7 +17,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: { s
 
   let query = supabase.from('products').select('*', { count: 'exact' })
 
-  // Apply category filter only if category param exists and is not 'all'
+  // Apply category filter only if category param exists and is not equal to 'all'
   if (category && category !== 'all') {
     query = query.eq('category', category)
   }
@@ -27,10 +27,11 @@ export default async function ProductsPage({ searchParams }: { searchParams: { s
     // ilike for case-insensitive partial matching
     query = query.ilike('name', `%${searchQuery}%`)
   }
+
   // Apply pagination after filters
   query = query.range(from, to)
   
-  const { data: products, error, count } = await query
+  const { data: products, error, count } = await query;
 
   if (error) {
     return (

@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import { supabase } from '@/lib/supabase-client'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
-import LoginButton from '@/components/LoginButton'
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -12,10 +11,11 @@ export default function RegisterPage() {
   const [password, setPassword] = useState('')
   const [Error, setError] = useState<string | null>(null)
 
+  //main function to handle registration
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    // 1. Check if user already exists in public.users
+    //check for users with same email 
     const { data: existingUsers, error: userFetchError } = await supabase
       .from('users')
       .select('email')
@@ -31,18 +31,12 @@ export default function RegisterPage() {
       return
     }
 
-    // 2. Proceed with Supabase auth signup
+    //actual signup using supabase
     const { error: signupError } = await supabase.auth.signUp({ email, password })
 
     if (signupError) {
       setError(signupError.message)
-
-      const msg = signupError.message.toLowerCase()
-      if (msg.includes('already') && (msg.includes('registered') || msg.includes('exists'))) {
-        toast.error('Email is already registered!')
-      } else {
-        toast.error(signupError.message)
-      }
+      toast.error(signupError.message)
     } else {
       toast.success('Registration successful! Kindly verify your email.')
       router.push('/login')

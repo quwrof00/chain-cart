@@ -10,12 +10,15 @@ export default function AddToCartButton({ productId }: { productId: number }) {
 
   useEffect(() => {
     const checkCart = async () => {
+
+      //check if user has logged in
       const {
         data: { user },
       } = await supabase.auth.getUser()
 
       if (!user) return setLoading(false)
 
+      //check if user has already added the item to his current cart 
       const { data: cartItems } = await supabase
         .from('cart_items')
         .select('id')
@@ -30,9 +33,10 @@ export default function AddToCartButton({ productId }: { productId: number }) {
       setLoading(false)
     }
 
-    checkCart()
+    checkCart();
   }, [productId])
 
+  //add item to cart
   const handleAddToCart = async () => {
     const {
       data: { user },
@@ -40,6 +44,7 @@ export default function AddToCartButton({ productId }: { productId: number }) {
 
     if (!user) return alert('Please log in')
 
+    //insert item along with user id and product id with default val of 1
     const { error } = await supabase.from('cart_items').insert({
       user_id: user.id,
       product_id: productId,
